@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout title="Contact">
+  <section class="mx-auto max-w-2xl px-6 pt-20 pb-24">
+    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">Contact</p>
+    <h1 class="text-5xl font-semibold tracking-tight leading-tight">
+      Let's talk.
+    </h1>
+    <p class="mt-6 text-xl text-neutral-600 leading-relaxed">
+      The fastest way to reach us is email. Tell us what you're working on, where you're stuck, and what "great" would look like for you.
+    </p>
+
+    <div class="mt-10 p-8 rounded-2xl border border-neutral-200">
+      <div class="text-sm uppercase tracking-widest text-neutral-500 mb-2">Email</div>
+      <a
+        href={`mailto:${SITE.email}?subject=New%20engagement%20enquiry`}
+        class="text-2xl font-medium text-neutral-900 hover:underline"
+      >
+        {SITE.email}
+      </a>
+      <p class="mt-4 text-sm text-neutral-600">
+        We read everything and reply within two business days.
+      </p>
+    </div>
+
+    <div class="mt-8 text-sm text-neutral-600">
+      <p class="font-medium text-neutral-900">Things that help us respond quickly</p>
+      <ul class="mt-3 space-y-2 list-disc pl-5">
+        <li>Company, your role, a one-line description of the business</li>
+        <li>Which of the two things you think we'd work on together</li>
+        <li>What you've already tried</li>
+        <li>Timeline and any constraints</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

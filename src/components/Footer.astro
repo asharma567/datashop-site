@@ -1,0 +1,17 @@
+---
+import { SITE } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-neutral-200 mt-24">
+  <div class="mx-auto max-w-6xl px-6 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 text-sm text-neutral-600">
+    <div>
+      <div class="font-semibold text-neutral-900">{SITE.name}</div>
+      <p class="mt-1 max-w-md">{SITE.description}</p>
+    </div>
+    <div class="flex flex-col md:items-end gap-1">
+      <a href={`mailto:${SITE.email}`} class="hover:text-neutral-900">{SITE.email}</a>
+      <span class="text-neutral-500">&copy; {year} {SITE.name}</span>
+    </div>
+  </div>
+</footer>

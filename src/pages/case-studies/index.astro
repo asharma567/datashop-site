@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const studies = (await getCollection('caseStudies')).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+);
+---
+
+<BaseLayout title="Case studies">
+  <section class="mx-auto max-w-6xl px-6 pt-20 pb-12">
+    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">Case studies</p>
+    <h1 class="text-5xl font-semibold tracking-tight">Work that shipped.</h1>
+    <p class="mt-6 text-xl text-neutral-600 max-w-2xl">
+      How we've helped teams move from stuck to scaling. Each of these is a real engagement — with the messy middle left in.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-24">
+    {studies.length === 0 ? (
+      <p class="text-neutral-500 italic">
+        Case studies coming soon.
+      </p>
+    ) : (
+      <div class="grid md:grid-cols-2 gap-6">
+        {studies.map((study) => (
+          <a
+            href={`/case-studies/${study.id}`}
+            class="group block border border-neutral-200 rounded-2xl p-8 hover:border-neutral-900 transition-colors"
+          >
+            <div class="flex items-center justify-between text-xs uppercase tracking-widest text-neutral-500 mb-3">
+              <span>{study.data.industry}</span>
+              <span>{study.data.client}</span>
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight mb-3">
+              {study.data.title}
+            </h2>
+            <p class="text-neutral-600 leading-relaxed">{study.data.summary}</p>
+            {study.data.metrics && study.data.metrics.length > 0 && (
+              <div class="mt-6 flex gap-6 pt-6 border-t border-neutral-100">
+                {study.data.metrics.slice(0, 3).map((m) => (
+                  <div>
+                    <div class="text-2xl font-semibold">{m.value}</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-widest mt-1">
+                      {m.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

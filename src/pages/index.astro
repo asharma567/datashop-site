@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const featuredStudies = (await getCollection('caseStudies'))
+  .filter((s) => s.data.featured)
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="mx-auto max-w-6xl px-6 pt-24 pb-20">
+    <div class="max-w-3xl">
+      <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">
+        AI consultancy
+      </p>
+      <h1 class="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-neutral-900">
+        We help forward-thinking businesses put AI to work — at the scale of the whole org.
+      </h1>
+      <p class="mt-6 text-xl text-neutral-600 leading-relaxed">
+        Two things we do well: transform how an entire organization operates around AI, and take an MVP that's already working and turn it into a production system that scales.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/contact"
+          class="bg-neutral-900 text-white px-6 py-3 rounded-full hover:bg-neutral-700 transition-colors font-medium"
+        >
+          Start a conversation
+        </a>
+        <a
+          href="/case-studies"
+          class="border border-neutral-300 text-neutral-900 px-6 py-3 rounded-full hover:bg-neutral-100 transition-colors font-medium"
+        >
+          See our work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="mx-auto max-w-6xl px-6 py-20 border-t border-neutral-200">
+    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-12">What we do</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      {services.map((service) => (
+        <a
+          href={`/services#${service.id}`}
+          class="group block p-8 rounded-2xl border border-neutral-200 hover:border-neutral-900 transition-colors"
+        >
+          <h3 class="text-2xl font-semibold tracking-tight mb-2">
+            {service.data.title}
+          </h3>
+          <p class="text-neutral-600 leading-relaxed">{service.data.tagline}</p>
+          <span class="inline-flex items-center mt-4 text-sm font-medium text-neutral-900 group-hover:underline">
+            Learn more →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  {featuredStudies.length > 0 && (
+    <section class="mx-auto max-w-6xl px-6 py-20 border-t border-neutral-200">
+      <div class="flex items-end justify-between mb-12">
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Recent work</h2>
+        <a href="/case-studies" class="text-sm font-medium hover:underline">
+          All case studies →
+        </a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {featuredStudies.map((study) => (
+          <a
+            href={`/case-studies/${study.id}`}
+            class="group block border border-neutral-200 rounded-2xl p-6 hover:border-neutral-900 transition-colors"
+          >
+            <div class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+              {study.data.industry}
+            </div>
+            <h3 class="text-xl font-semibold tracking-tight mb-2">
+              {study.data.title}
+            </h3>
+            <p class="text-neutral-600 text-sm leading-relaxed">
+              {study.data.summary}
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-6xl px-6 py-20 border-t border-neutral-200">
+    <div class="bg-neutral-900 text-white rounded-3xl p-12 md:p-16">
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight max-w-2xl">
+        Have an MVP you need to scale, or an organization ready to move on AI?
+      </h2>
+      <p class="mt-4 text-lg text-neutral-300 max-w-2xl">
+        We partner with a small number of teams each quarter. Tell us what you're working on.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block mt-8 bg-white text-neutral-900 px-6 py-3 rounded-full hover:bg-neutral-200 transition-colors font-medium"
+      >
+        Start a conversation
+      </a>
+    </div>
+  </section>
+</BaseLayout>

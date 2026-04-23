@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+  services.map(async (s) => ({ entry: s, ...(await render(s)) }))
+);
+---
+
+<BaseLayout title="What we do">
+  <section class="mx-auto max-w-4xl px-6 pt-20 pb-12">
+    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">What we do</p>
+    <h1 class="text-5xl font-semibold tracking-tight text-neutral-900">
+      Two things, done thoroughly.
+    </h1>
+    <p class="mt-6 text-xl text-neutral-600 leading-relaxed">
+      We're deliberate about scope. These are the two engagements we've done enough times to know we can deliver — and we won't pretend otherwise.
+    </p>
+  </section>
+
+  {rendered.map(({ entry, Content }) => (
+    <section id={entry.id} class="mx-auto max-w-4xl px-6 py-16 border-t border-neutral-200">
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">{entry.data.title}</h2>
+      <p class="mt-4 text-lg text-neutral-600">{entry.data.tagline}</p>
+      <div class="mt-8 prose prose-neutral max-w-none prose-headings:tracking-tight prose-h2:text-xl prose-h2:mt-8 prose-h2:font-semibold">
+        <Content />
+      </div>
+    </section>
+  ))}
+
+  <section class="mx-auto max-w-4xl px-6 py-20 border-t border-neutral-200">
+    <a
+      href="/contact"
+      class="inline-block bg-neutral-900 text-white px-6 py-3 rounded-full hover:bg-neutral-700 transition-colors font-medium"
+    >
+      Start a conversation
+    </a>
+  </section>
+</BaseLayout>
