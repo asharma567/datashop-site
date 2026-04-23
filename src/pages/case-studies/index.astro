@@ -5,45 +5,62 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const studies = (await getCollection('caseStudies')).sort(
   (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
 );
+
+const accents = [
+  'var(--color-accent)',
+  'var(--color-mint)',
+  'var(--color-cyan)',
+  'var(--color-peach)',
+  'var(--color-lavender)',
+];
 ---
 
 <BaseLayout title="Case studies">
   <section class="mx-auto max-w-6xl px-6 pt-20 pb-12">
-    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">Case studies</p>
-    <h1 class="text-5xl font-semibold tracking-tight">Work that shipped.</h1>
-    <p class="mt-6 text-xl text-neutral-600 max-w-2xl">
-      How we've helped teams move from stuck to scaling. Each of these is a real engagement — with the messy middle left in.
+    <p class="eyebrow">Case studies</p>
+    <h1
+      class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
+    >
+      Work that <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">shipped</span>.
+    </h1>
+    <p class="mt-6 text-lg text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
+      How we've helped teams move from stuck to scaling. Real engagements — metrics, constraints,
+      and the messy middle left in.
     </p>
   </section>
 
   <section class="mx-auto max-w-6xl px-6 pb-24">
     {studies.length === 0 ? (
-      <p class="text-neutral-500 italic">
-        Case studies coming soon.
-      </p>
+      <p class="text-[var(--color-fg-muted)] italic">Case studies coming soon.</p>
     ) : (
-      <div class="grid md:grid-cols-2 gap-6">
-        {studies.map((study) => (
+      <div class="grid md:grid-cols-2 gap-5">
+        {studies.map((study, i) => (
           <a
             href={`/case-studies/${study.id}`}
-            class="group block border border-neutral-200 rounded-2xl p-8 hover:border-neutral-900 transition-colors"
+            class="brackets group block p-8 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] transition-colors"
           >
-            <div class="flex items-center justify-between text-xs uppercase tracking-widest text-neutral-500 mb-3">
-              <span>{study.data.industry}</span>
-              <span>{study.data.client}</span>
+            <div class="flex items-center justify-between mb-4">
+              <span class="eyebrow" style={`color: ${accents[i % accents.length]}`}>
+                {study.data.industry}
+              </span>
+              <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+                {study.data.client}
+              </span>
             </div>
-            <h2 class="text-2xl font-semibold tracking-tight mb-3">
+            <h2
+              class="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--color-fg)]"
+            >
               {study.data.title}
             </h2>
-            <p class="text-neutral-600 leading-relaxed">{study.data.summary}</p>
+            <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">{study.data.summary}</p>
             {study.data.metrics && study.data.metrics.length > 0 && (
-              <div class="mt-6 flex gap-6 pt-6 border-t border-neutral-100">
+              <div class="mt-6 pt-5 border-t border-[var(--color-border)] grid grid-cols-3 gap-4">
                 {study.data.metrics.slice(0, 3).map((m) => (
                   <div>
-                    <div class="text-2xl font-semibold">{m.value}</div>
-                    <div class="text-xs text-neutral-500 uppercase tracking-widest mt-1">
-                      {m.label}
+                    <div class="font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-fg)]">
+                      {m.value}
                     </div>
+                    <div class="eyebrow mt-1">{m.label}</div>
                   </div>
                 ))}
               </div>

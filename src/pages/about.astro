@@ -1,40 +1,83 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { CLIENT_ROSTER } from '../consts';
 ---
 
 <BaseLayout title="About">
   <section class="mx-auto max-w-3xl px-6 pt-20 pb-24">
-    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">About</p>
-    <h1 class="text-5xl font-semibold tracking-tight leading-tight">
-      We help organizations move from AI curiosity to AI leverage.
+    <p class="eyebrow">About</p>
+    <h1
+      class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
+    >
+      A specialized engineering firm —
+      <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">
+        with receipts.
+      </span>
     </h1>
 
-    <div class="mt-10 prose prose-lg prose-neutral max-w-none prose-headings:tracking-tight prose-h2:font-semibold prose-h2:text-2xl prose-h2:mt-10">
+    <div class="mt-14 grid grid-cols-3 gap-6 border-y border-[var(--color-border)] py-8">
+      <div>
+        <div class="font-[family-name:var(--font-display)] text-3xl font-semibold text-[var(--color-accent)]">40+</div>
+        <div class="eyebrow mt-2">Engineers globally</div>
+      </div>
+      <div>
+        <div class="font-[family-name:var(--font-display)] text-3xl font-semibold text-[var(--color-mint)]">5+</div>
+        <div class="eyebrow mt-2">Years in business</div>
+      </div>
+      <div>
+        <div class="font-[family-name:var(--font-display)] text-3xl font-semibold text-[var(--color-cyan)]">19</div>
+        <div class="eyebrow mt-2">Years founder AI/ML</div>
+      </div>
+    </div>
+
+    <div class="mt-12 prose prose-invert prose-lg max-w-none">
       <p>
-        Datashop is a small consultancy. We work with a small number of teams at a time because transformation isn't a deck — it's a relationship that plays out over months, with the hard conversations included.
+        Datashop is a specialized engineering firm. We ship production systems for teams that
+        can't afford hand-wavy AI — AAA game publishers, Web3 infrastructure, regulated fintech,
+        and healthcare.
       </p>
 
-      <h2>The two shapes of our work</h2>
+      <h2 class="font-[family-name:var(--font-display)]">The two shapes of our work</h2>
 
       <p>
-        We've found the engagements we're best at cluster into two shapes. One is <strong>org-wide AI transformation</strong>: working with executive teams to map where AI actually changes the business, what needs to happen across functions, and what operating model survives the change.
+        We've found the engagements we're best at cluster into two shapes. One is
+        <strong>org-wide AI transformation</strong>: working with executive teams to map where
+        AI actually changes the business, what needs to happen across functions, and what
+        operating model survives the change.
       </p>
 
       <p>
-        The other is <strong>MVP to production scale</strong>: picking up an AI system that's working for a few users and building the evaluation, observability, cost, and reliability practices that let it handle real load without cracking. This is the phase most teams are surprised by, and most of what goes wrong happens here.
+        The other is <strong>MVP to production scale</strong>: picking up an AI system that's
+        working for a few users and building the evaluation, observability, cost, and reliability
+        practices that let it handle real load without cracking. This is the phase most teams
+        are surprised by, and most of what goes wrong happens here.
       </p>
 
-      <h2>How we work</h2>
-
+      <h2 class="font-[family-name:var(--font-display)]">Who's behind this</h2>
       <p>
-        We parachute in, look at the real problem, and leave you with something durable. That means: a team that understands the system after we've gone, documentation that doesn't lie, and a measurement setup that tells you when things are drifting.
+        Our leadership combines deep institutional experience with modern agility. Partners
+        include a former NVIDIA engineer (15+ years in AI/ML/Stats) and a former McKinsey
+        consultant. The founding partner has 19 years in AI/ML/Stats, starting his career as
+        a quantitative analyst at a hedge fund.
       </p>
 
+      <h2 class="font-[family-name:var(--font-display)]">Client roster</h2>
       <p>
-        We don't take every engagement. If the fit's wrong we'll say so — and refer you to someone better suited.
+        We've shipped production systems for <strong>{CLIENT_ROSTER.join(', ')}</strong>,
+        alongside several venture-backed startups.
       </p>
 
-      <h2>Get in touch</h2>
+      <h2 class="font-[family-name:var(--font-display)]">How we work</h2>
+      <p>
+        We parachute in, look at the real problem, and leave you with something durable. That
+        means: a team that understands the system after we've gone, documentation that doesn't
+        lie, and measurement that tells you when things are drifting.
+      </p>
+      <p>
+        We don't take every engagement. If the fit's wrong we'll say so — and refer you to
+        someone better suited.
+      </p>
+
       <p>
         Tell us what you're working on. <a href="/contact">Start a conversation →</a>
       </p>

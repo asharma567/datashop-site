@@ -7,55 +7,82 @@ const episodes = (await getCollection('podcasts')).sort((a, b) => b.data.episode
 
 <BaseLayout title="Podcast">
   <section class="mx-auto max-w-4xl px-6 pt-20 pb-12">
-    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">Podcast</p>
-    <h1 class="text-5xl font-semibold tracking-tight">Conversations on applied AI.</h1>
-    <p class="mt-6 text-xl text-neutral-600 max-w-2xl">
-      Long-form conversations with operators, researchers, and founders shipping AI in the real world.
+    <p class="eyebrow">Podcast</p>
+    <h1
+      class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
+    >
+      Conversations on
+      <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">
+        applied AI
+      </span>.
+    </h1>
+    <p class="mt-6 text-lg text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
+      Long-form conversations with operators, researchers, and founders shipping AI in the real
+      world. Also on
+      <a href="https://www.youtube.com/@datashop-ai" target="_blank" rel="noopener" class="underline hover:text-[var(--color-fg)]">YouTube</a>.
     </p>
   </section>
 
   <section class="mx-auto max-w-4xl px-6 pb-24">
     {episodes.length === 0 ? (
-      <p class="text-neutral-500 italic">Episodes coming soon.</p>
+      <p class="text-[var(--color-fg-muted)] italic">Episodes coming soon.</p>
     ) : (
-      <ol class="divide-y divide-neutral-200">
+      <ol class="divide-y divide-[var(--color-border)]">
         {episodes.map((ep) => (
-          <li class="py-8 flex flex-col md:flex-row md:items-start gap-6">
-            <div class="md:w-20 shrink-0 text-sm font-mono text-neutral-500">
-              Ep. {String(ep.data.episode).padStart(2, '0')}
+          <li class="py-10 grid md:grid-cols-[6rem_1fr] gap-6">
+            <div class="font-[family-name:var(--font-mono)] text-sm text-[var(--color-fg-subtle)]">
+              EP {String(ep.data.episode).padStart(2, '0')}
             </div>
-            <div class="flex-1">
-              <a
-                href={`/podcasts/${ep.id}`}
-                class="block group"
-              >
-                <h2 class="text-2xl font-semibold tracking-tight group-hover:underline">
+            <div>
+              <a href={`/podcasts/${ep.id}`} class="block group">
+                <h2
+                  class="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-tight text-[var(--color-fg)] group-hover:text-[var(--color-accent)] transition-colors"
+                >
                   {ep.data.title}
                 </h2>
               </a>
               {ep.data.guest && (
-                <p class="mt-1 text-sm text-neutral-500">
+                <p class="mt-1 text-sm text-[var(--color-fg-muted)]">
                   With {ep.data.guest}{ep.data.guestTitle ? `, ${ep.data.guestTitle}` : ''}
                 </p>
               )}
-              <p class="mt-3 text-neutral-700 leading-relaxed">{ep.data.description}</p>
-              <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+              <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">{ep.data.description}</p>
+              <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
                 {ep.data.spotifyUrl && (
-                  <a href={ep.data.spotifyUrl} target="_blank" rel="noopener" class="text-neutral-700 hover:text-neutral-900 underline">
+                  <a
+                    href={ep.data.spotifyUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[var(--color-fg)] hover:text-[var(--color-accent)] underline underline-offset-4 decoration-[var(--color-border-strong)] hover:decoration-[var(--color-accent)]"
+                  >
                     Spotify
                   </a>
                 )}
                 {ep.data.appleUrl && (
-                  <a href={ep.data.appleUrl} target="_blank" rel="noopener" class="text-neutral-700 hover:text-neutral-900 underline">
+                  <a
+                    href={ep.data.appleUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[var(--color-fg)] hover:text-[var(--color-accent)] underline underline-offset-4 decoration-[var(--color-border-strong)] hover:decoration-[var(--color-accent)]"
+                  >
                     Apple Podcasts
                   </a>
                 )}
                 {ep.data.youtubeUrl && (
-                  <a href={ep.data.youtubeUrl} target="_blank" rel="noopener" class="text-neutral-700 hover:text-neutral-900 underline">
+                  <a
+                    href={ep.data.youtubeUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-[var(--color-fg)] hover:text-[var(--color-accent)] underline underline-offset-4 decoration-[var(--color-border-strong)] hover:decoration-[var(--color-accent)]"
+                  >
                     YouTube
                   </a>
                 )}
-                {ep.data.duration && <span class="text-neutral-500">{ep.data.duration}</span>}
+                {ep.data.duration && (
+                  <span class="text-[var(--color-fg-subtle)] font-[family-name:var(--font-mono)] text-xs">
+                    {ep.data.duration}
+                  </span>
+                )}
               </div>
             </div>
           </li>

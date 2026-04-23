@@ -1,2 +1,148 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  /* Core surface palette — matte near-black with subtle cool tint */
+  --color-bg: #0b0b0f;
+  --color-bg-elev: #141418;
+  --color-bg-muted: #1b1b21;
+  --color-surface: #24242c;
+
+  /* Foreground */
+  --color-fg: #f5f5f7;
+  --color-fg-muted: #a8a8b3;
+  --color-fg-subtle: #6e6e7a;
+
+  /* Borders */
+  --color-border: #2a2a33;
+  --color-border-strong: #3b3b47;
+
+  /* Pastel accents — sampled from hex.tech's brand palette */
+  --color-accent: #f5c0c0;      /* dusty rose — primary pop */
+  --color-accent-soft: #f9d8d2;
+  --color-mint: #5cb198;         /* tech-forward green */
+  --color-mint-soft: #c8ecd8;
+  --color-cyan: #00c7d4;         /* metrics / callouts */
+  --color-cyan-soft: #b8e8eb;
+  --color-lavender: #c9c6fa;     /* subtle accents */
+  --color-peach: #fcd7a1;
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Helvetica Neue", system-ui, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --font-editorial: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+}
+
+/* Base resets */
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-feature-settings: "cv11", "ss01", "ss03";
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Subtle film-grain on dark surfaces — adds matte feel */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.035 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* Decorative corner brackets on cards — borrowed from hex.tech */
+.brackets {
+  position: relative;
+}
+.brackets::before,
+.brackets::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-accent);
+  opacity: 0;
+  transition: opacity 240ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.brackets::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+.brackets:hover::before,
+.brackets:hover::after,
+.brackets:focus-within::before,
+.brackets:focus-within::after {
+  opacity: 1;
+}
+
+/* Prose overrides — for MDX body copy in case studies / podcasts / services */
+.prose {
+  --tw-prose-body: var(--color-fg-muted);
+  --tw-prose-headings: var(--color-fg);
+  --tw-prose-lead: var(--color-fg-muted);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-fg);
+  --tw-prose-counters: var(--color-fg-subtle);
+  --tw-prose-bullets: var(--color-fg-subtle);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-fg);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-captions: var(--color-fg-subtle);
+  --tw-prose-code: var(--color-accent);
+  --tw-prose-pre-code: var(--color-fg);
+  --tw-prose-pre-bg: var(--color-bg-elev);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+.prose blockquote {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+/* Utility: eyebrow label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}

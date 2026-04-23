@@ -9,32 +9,51 @@ const rendered = await Promise.all(
 ---
 
 <BaseLayout title="What we do">
-  <section class="mx-auto max-w-4xl px-6 pt-20 pb-12">
-    <p class="text-sm font-medium text-neutral-500 uppercase tracking-widest mb-4">What we do</p>
-    <h1 class="text-5xl font-semibold tracking-tight text-neutral-900">
-      Two things, done thoroughly.
+  <section class="mx-auto max-w-4xl px-6 pt-20 pb-14">
+    <p class="eyebrow">What we do</p>
+    <h1
+      class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
+    >
+      Two shapes of <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">engagement</span>.
     </h1>
-    <p class="mt-6 text-xl text-neutral-600 leading-relaxed">
-      We're deliberate about scope. These are the two engagements we've done enough times to know we can deliver — and we won't pretend otherwise.
+    <p class="mt-6 text-lg text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
+      We're deliberate about scope. These are the two engagements we've done enough times to
+      know we can deliver — and we won't pretend otherwise.
     </p>
   </section>
 
-  {rendered.map(({ entry, Content }) => (
-    <section id={entry.id} class="mx-auto max-w-4xl px-6 py-16 border-t border-neutral-200">
-      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">{entry.data.title}</h2>
-      <p class="mt-4 text-lg text-neutral-600">{entry.data.tagline}</p>
-      <div class="mt-8 prose prose-neutral max-w-none prose-headings:tracking-tight prose-h2:text-xl prose-h2:mt-8 prose-h2:font-semibold">
+  {rendered.map(({ entry, Content }, i) => (
+    <section
+      id={entry.id}
+      class="mx-auto max-w-4xl px-6 py-16 border-t border-[var(--color-border)]"
+    >
+      <div
+        class="eyebrow"
+        style={`color: ${i === 0 ? 'var(--color-mint)' : 'var(--color-accent)'}`}
+      >
+        {i === 0 ? '01 / Org-wide transformation' : '02 / MVP → production'}
+      </div>
+      <h2
+        class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.01em]"
+      >
+        {entry.data.title}
+      </h2>
+      <p class="mt-5 text-lg text-[var(--color-fg-muted)] leading-relaxed">
+        {entry.data.tagline}
+      </p>
+      <div class="mt-10 prose prose-invert max-w-none">
         <Content />
       </div>
     </section>
   ))}
 
-  <section class="mx-auto max-w-4xl px-6 py-20 border-t border-neutral-200">
+  <section class="mx-auto max-w-4xl px-6 py-24 border-t border-[var(--color-border)]">
     <a
       href="/contact"
-      class="inline-block bg-neutral-900 text-white px-6 py-3 rounded-full hover:bg-neutral-700 transition-colors font-medium"
+      class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-bg)] px-5 py-3 rounded-full hover:bg-[var(--color-fg)] transition-colors font-medium text-[14px]"
     >
       Start a conversation
+      <span aria-hidden="true">→</span>
     </a>
   </section>
 </BaseLayout>

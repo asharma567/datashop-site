@@ -6,12 +6,20 @@ const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
-<header class="border-b border-neutral-200 bg-white/80 backdrop-blur sticky top-0 z-50">
+<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-bg)_85%,transparent)] backdrop-blur-md">
   <nav class="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between">
-    <a href="/" class="font-semibold tracking-tight text-lg text-neutral-900">
-      {SITE.name}
+    <a href="/" class="flex items-center gap-2 group" aria-label="Datashop home">
+      <span
+        class="inline-block h-2 w-2 rounded-full bg-[var(--color-accent)] transition-transform group-hover:scale-125"
+        aria-hidden="true"
+      ></span>
+      <span
+        class="font-[family-name:var(--font-display)] font-semibold tracking-tight text-[15px] text-[var(--color-fg)]"
+      >
+        {SITE.name}
+      </span>
     </a>
-    <ul class="hidden md:flex items-center gap-8 text-sm">
+    <ul class="hidden md:flex items-center gap-8 text-[13px]">
       {NAV.filter((n) => n.href !== '/').map((n) => (
         <li>
           <a
@@ -19,8 +27,8 @@ const isActive = (href: string) =>
             class:list={[
               'transition-colors',
               isActive(n.href)
-                ? 'text-neutral-900 font-medium'
-                : 'text-neutral-600 hover:text-neutral-900',
+                ? 'text-[var(--color-fg)]'
+                : 'text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]',
             ]}
           >
             {n.label}
@@ -30,9 +38,10 @@ const isActive = (href: string) =>
     </ul>
     <a
       href="/contact"
-      class="text-sm bg-neutral-900 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition-colors"
+      class="group inline-flex items-center gap-2 text-[13px] border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
     >
-      Start a conversation
+      <span>Start a conversation</span>
+      <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
     </a>
   </nav>
 </header>
