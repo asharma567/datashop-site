@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { CLIENT_ROSTER } from '../consts';
+import ClientReel from '../components/ClientReel.astro';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 const featuredStudies = (await getCollection('caseStudies'))
@@ -13,7 +13,7 @@ const featuredStudies = (await getCollection('caseStudies'))
 <BaseLayout>
   <!-- Hero -->
   <section class="grain relative mx-auto max-w-6xl px-6 pt-20 pb-24">
-    <p class="eyebrow">AI &nbsp;·&nbsp; Data engineering &nbsp;·&nbsp; Web3</p>
+    <p class="eyebrow">AI &nbsp;·&nbsp; Data engineering &nbsp;·&nbsp; Crypto</p>
     <h1
       class="mt-6 font-[family-name:var(--font-display)] text-[44px] md:text-[76px] font-semibold tracking-[-0.02em] leading-[1.02] text-[var(--color-fg)] max-w-4xl"
     >
@@ -32,7 +32,7 @@ const featuredStudies = (await getCollection('caseStudies'))
     <div class="mt-10 flex flex-wrap gap-3">
       <a
         href="/contact"
-        class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-bg)] px-5 py-3 rounded-full hover:bg-[var(--color-fg)] transition-colors font-medium text-[14px]"
+        class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
       >
         Start a conversation
         <span aria-hidden="true">→</span>
@@ -45,13 +45,14 @@ const featuredStudies = (await getCollection('caseStudies'))
       </a>
     </div>
 
-    <!-- Client roster strip -->
-    <div class="mt-20 pt-10 border-t border-[var(--color-border)]">
-      <p class="eyebrow mb-5">Trusted to ship production systems</p>
-      <div class="flex flex-wrap items-center gap-x-10 gap-y-4 font-[family-name:var(--font-display)] text-[var(--color-fg-muted)] text-sm md:text-base">
-        {CLIENT_ROSTER.map((c) => <span>{c}</span>)}
-      </div>
+  </section>
+
+  <!-- Client reel — escapes the page max-width to run edge-to-edge -->
+  <section class="border-t border-[var(--color-border)]">
+    <div class="mx-auto max-w-6xl px-6 pt-10">
+      <p class="eyebrow">Trusted to ship production systems</p>
     </div>
+    <ClientReel />
   </section>
 
   <!-- Services -->
@@ -78,7 +79,7 @@ const featuredStudies = (await getCollection('caseStudies'))
           href={`/services#${service.id}`}
           class="brackets group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] transition-colors"
         >
-          <div class="eyebrow" style={`color: ${i === 0 ? 'var(--color-mint)' : 'var(--color-accent)'}`}>
+          <div class="eyebrow" style={`color: ${i === 0 ? 'var(--color-accent)' : 'var(--color-cool)'}`}>
             {i === 0 ? '01 / Org-wide' : '02 / MVP → scale'}
           </div>
           <h3
@@ -117,7 +118,7 @@ const featuredStudies = (await getCollection('caseStudies'))
       </div>
       <div class="grid md:grid-cols-3 gap-5">
         {featuredStudies.map((study, i) => {
-          const accents = ['var(--color-accent)', 'var(--color-mint)', 'var(--color-cyan)'];
+          const accents = ['var(--color-accent)', 'var(--color-cool)', 'var(--color-accent-soft)'];
           return (
             <a
               href={`/case-studies/${study.id}`}
@@ -182,7 +183,7 @@ const featuredStudies = (await getCollection('caseStudies'))
           </p>
           <a
             href="/contact"
-            class="self-start inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-bg)] px-5 py-3 rounded-full hover:bg-[var(--color-fg)] transition-colors font-medium text-[14px]"
+            class="self-start inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
           >
             Start a conversation
             <span aria-hidden="true">→</span>

@@ -1,0 +1,72 @@
+---
+import { CLIENTS } from '../consts';
+
+const rail = [...CLIENTS, ...CLIENTS];
+---
+
+<section aria-label="Clients we've shipped production systems for" class="reel relative overflow-hidden mask">
+  <ul class="track flex items-center gap-6 py-8 will-change-transform">
+    {rail.map((c, i) => (
+      <li
+        class="shrink-0 flex items-center justify-center h-16 w-44 rounded-[var(--radius-md)] bg-[#f7f7f5] px-5"
+        aria-hidden={i >= CLIENTS.length ? 'true' : undefined}
+      >
+        {c.logo ? (
+          <img
+            src={c.logo}
+            alt={c.label}
+            loading="lazy"
+            decoding="async"
+            class="max-h-8 max-w-full object-contain"
+          />
+        ) : (
+          <span
+            class="font-[family-name:var(--font-display)] font-bold text-lg tracking-tight"
+            style={`color: ${c.color ?? '#1a1a1c'}`}
+          >
+            {c.label}
+          </span>
+        )}
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .reel {
+    --mask: linear-gradient(
+      to right,
+      transparent 0,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: var(--mask);
+            mask-image: var(--mask);
+  }
+
+  .track {
+    width: max-content;
+    animation: reel 54s linear infinite;
+  }
+  .reel:hover .track,
+  .reel:focus-within .track {
+    animation-play-state: paused;
+  }
+
+  @keyframes reel {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Duplicated rail → seamless loop at -50% */
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 title: "Full on-chain data infrastructure for Bonkbot — shipped in 3 weeks"
 client: "Bonkbot"
-industry: "Web3"
+industry: "Crypto"
 summary: "Built multi-region ClickHouse clusters and custom ETL pipelines covering APAC, EU, and US. Halved frontend query latency and gave internal teams the ability to validate market data in real time."
 problem: "Bonkbot needed reliable on-chain data serving millions of users across three geographies, and their existing pipelines couldn't keep up. Frontend queries were slow enough to hurt UX, and internal analysts had no trustworthy way to validate market data under production load."
 approach: "We stood up multi-region ClickHouse clusters in APAC, EU, and US, designed a custom ETL layer for their on-chain sources, and instrumented the pipeline end to end so degradations surfaced before users noticed them. We kept the design small enough to reason about and opinionated enough to move quickly."

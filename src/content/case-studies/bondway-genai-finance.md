@@ -30,4 +30,4 @@ The easy part is prompting a model to extract fields from a PDF. The hard part i
 
 ## Transferable to crypto
 
-The same pricing-discovery and elasticity work that made this pipeline useful for bonds maps directly onto AMMs, bonding curves, and token economics in Web3. The substrate is different; the engineering isn't.
+The same pricing-discovery and elasticity work that made this pipeline useful for bonds maps directly onto AMMs, bonding curves, and token economics in Crypto. The substrate is different; the engineering isn't.

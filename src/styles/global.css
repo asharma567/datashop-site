@@ -2,30 +2,29 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* Core surface palette — matte near-black with subtle cool tint */
-  --color-bg: #0b0b0f;
-  --color-bg-elev: #141418;
-  --color-bg-muted: #1b1b21;
-  --color-surface: #24242c;
+  /* Surface palette — matte warm charcoal, matches the Datashop YouTube banner */
+  --color-bg: #26262a;
+  --color-bg-elev: #2f2f34;
+  --color-bg-muted: #36363b;
+  --color-surface: #3d3d43;
 
   /* Foreground */
-  --color-fg: #f5f5f7;
-  --color-fg-muted: #a8a8b3;
-  --color-fg-subtle: #6e6e7a;
+  --color-fg: #f6f6f5;
+  --color-fg-muted: #b0b0ad;
+  --color-fg-subtle: #76767a;
 
   /* Borders */
-  --color-border: #2a2a33;
-  --color-border-strong: #3b3b47;
+  --color-border: #3a3a3f;
+  --color-border-strong: #50505a;
 
-  /* Pastel accents — sampled from hex.tech's brand palette */
-  --color-accent: #f5c0c0;      /* dusty rose — primary pop */
-  --color-accent-soft: #f9d8d2;
-  --color-mint: #5cb198;         /* tech-forward green */
-  --color-mint-soft: #c8ecd8;
-  --color-cyan: #00c7d4;         /* metrics / callouts */
-  --color-cyan-soft: #b8e8eb;
-  --color-lavender: #c9c6fa;     /* subtle accents */
-  --color-peach: #fcd7a1;
+  /* Brand accents — electric lime primary, matching the podcast cover */
+  --color-accent: #ddff66;
+  --color-accent-soft: #e9ff99;
+  --color-accent-dim: #9fb836;
+  --color-on-accent: #1a1a1c;
+
+  /* Reserved cool complement for cases where we want variety */
+  --color-cool: #a8e8ff;
 
   /* Typography */
   --font-display: "Space Grotesk", "Helvetica Neue", system-ui, sans-serif;
@@ -40,7 +39,7 @@
   --radius-xl: 22px;
 }
 
-/* Base resets */
+/* Base */
 html {
   background: var(--color-bg);
   color: var(--color-fg);
@@ -58,10 +57,10 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
-/* Subtle film-grain on dark surfaces — adds matte feel */
+/* Matte film-grain */
 .grain {
   position: relative;
   isolation: isolate;
@@ -77,7 +76,7 @@ body {
   mix-blend-mode: overlay;
 }
 
-/* Decorative corner brackets on cards — borrowed from hex.tech */
+/* Corner brackets — lime on hover */
 .brackets {
   position: relative;
 }
@@ -110,7 +109,7 @@ body {
   opacity: 1;
 }
 
-/* Prose overrides — for MDX body copy in case studies / podcasts / services */
+/* Prose — lime links, lime quote bar */
 .prose {
   --tw-prose-body: var(--color-fg-muted);
   --tw-prose-headings: var(--color-fg);
@@ -137,7 +136,7 @@ body {
   line-height: 1.35;
 }
 
-/* Utility: eyebrow label */
+/* Eyebrow label */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
