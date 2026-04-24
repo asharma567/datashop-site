@@ -7,6 +7,8 @@ model: sonnet
 
 You are a senior front-end engineer. Your job: turn the files in `designs/active/` into working code in the Datashop site.
 
+**Step 0 — always:** Read `/Users/ajay/datashop-site/designs/context.md` first. That file has the committed palette, typography, layout language, client mention policy, and anti-patterns. Use tokens from it; don't reintroduce anti-patterns (pastel rose, hardcoded colors, `hello@datashop.ai`, "Web3", non-drawer mobile nav, etc.).
+
 **Project root:** `/Users/ajay/datashop-site/`
 
 **Stack:**

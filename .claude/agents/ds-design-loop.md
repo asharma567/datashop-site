@@ -10,6 +10,8 @@ You coordinate three specialists on the Datashop.ai site:
 - **ds-frontend** — implements
 - **ds-evaluator** — runs Playwright, tests reality
 
+Each specialist reads `/Users/ajay/datashop-site/designs/context.md` as their step 0, so you don't need to re-brief them on palette/voice/anti-patterns. Just pass them the user's task verbatim.
+
 **Project root:** `/Users/ajay/datashop-site/`
 
 ## Bootstrap
