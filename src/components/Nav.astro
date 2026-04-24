@@ -19,6 +19,8 @@ const isActive = (href: string) =>
         {SITE.name}
       </span>
     </a>
+
+    <!-- Desktop nav -->
     <ul class="hidden md:flex items-center gap-8 text-[13px]">
       {NAV.filter((n) => n.href !== '/').map((n) => (
         <li>
@@ -36,12 +38,85 @@ const isActive = (href: string) =>
         </li>
       ))}
     </ul>
-    <a
-      href="/contact"
-      class="group inline-flex items-center gap-2 text-[13px] border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
-    >
-      <span>Start a conversation</span>
-      <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
-    </a>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="/contact"
+        class="hidden sm:inline-flex group items-center gap-2 text-[13px] border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+      >
+        <span>Start a conversation</span>
+        <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+      </a>
+
+      <!-- Mobile menu toggle -->
+      <button
+        id="mobile-nav-toggle"
+        type="button"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        aria-label="Open menu"
+        class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-full border border-[var(--color-border-strong)] text-[var(--color-fg)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="7" x2="21" y2="7"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="17" x2="21" y2="17"></line>
+        </svg>
+      </button>
+    </div>
   </nav>
+
+  <!-- Mobile nav drawer -->
+  <div
+    id="mobile-nav"
+    hidden
+    class="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]"
+  >
+    <ul class="mx-auto max-w-6xl px-6 py-4 flex flex-col gap-3 text-[15px]">
+      {NAV.filter((n) => n.href !== '/').map((n) => (
+        <li>
+          <a
+            href={n.href}
+            class:list={[
+              'block py-1.5 transition-colors',
+              isActive(n.href)
+                ? 'text-[var(--color-fg)]'
+                : 'text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]',
+            ]}
+          >
+            {n.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2">
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full transition-colors font-medium text-[14px]"
+        >
+          Start a conversation
+          <span aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById('mobile-nav-toggle');
+    const panel = document.getElementById('mobile-nav');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const open = panel.hasAttribute('hidden') === false;
+      if (open) {
+        panel.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+      } else {
+        panel.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+      }
+    });
+  })();
+</script>

@@ -130,7 +130,7 @@ import { SITE } from '../consts';
         message,
         '',
         '— sent via datashop.ai contact form',
-      ].filter(Boolean);
+      ].filter((l) => l !== null);
 
       const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
         bodyLines.join('\n')
