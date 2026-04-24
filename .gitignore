@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# design-critic team workspace state (briefs, critiques, evaluations, screenshots)
+designs/active/
+designs/archive/
