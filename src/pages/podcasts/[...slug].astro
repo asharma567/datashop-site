@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
 
 export async function getStaticPaths() {
   const episodes = await getCollection('podcasts');
@@ -9,12 +10,28 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
-  <article class="mx-auto max-w-3xl px-6 pt-20 pb-16">
-    <div class="font-[family-name:var(--font-mono)] text-sm text-[var(--color-fg-subtle)] mb-6">
-      EPISODE {String(entry.data.episode).padStart(2, '0')}
+  <article class="mx-auto max-w-4xl px-6 pt-20 pb-16">
+    <div class="flex items-center gap-3 mb-6">
+      <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+        EP {String(entry.data.episode).padStart(2, '0')}
+      </span>
+      <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+        {dateFormat.format(entry.data.published)}
+      </span>
+      {entry.data.duration && (
+        <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+          {entry.data.duration}
+        </span>
+      )}
     </div>
     <h1
       class="font-[family-name:var(--font-display)] text-4xl md:text-6xl font-semibold tracking-[-0.02em] leading-[1.04]"
@@ -27,7 +44,23 @@ const { Content } = await render(entry);
       </p>
     )}
 
+    {entry.data.videoId && (
+      <div class="mt-10">
+        <YouTubeEmbed videoId={entry.data.videoId} title={entry.data.title} />
+      </div>
+    )}
+
     <div class="mt-8 flex flex-wrap gap-3">
+      {entry.data.youtubeUrl && (
+        <a
+          href={entry.data.youtubeUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors text-sm"
+        >
+          Watch on YouTube →
+        </a>
+      )}
       {entry.data.spotifyUrl && (
         <a
           href={entry.data.spotifyUrl}
@@ -46,16 +79,6 @@ const { Content } = await render(entry);
           class="inline-flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors text-sm"
         >
           Apple Podcasts →
-        </a>
-      )}
-      {entry.data.youtubeUrl && (
-        <a
-          href={entry.data.youtubeUrl}
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-4 py-2 rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors text-sm"
-        >
-          Watch on YouTube →
         </a>
       )}
     </div>

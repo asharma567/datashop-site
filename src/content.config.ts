@@ -28,9 +28,12 @@ const podcasts = defineCollection({
     episode: z.number(),
     guest: z.string().optional(),
     guestTitle: z.string().optional(),
+    /** Short teaser shown on the podcast index tile (2–3 sentences). */
     description: z.string(),
     duration: z.string().optional(),
     published: z.date(),
+    /** YouTube video ID used for inline embed + thumbnail. */
+    videoId: z.string().optional(),
     spotifyUrl: z.string().url().optional(),
     appleUrl: z.string().url().optional(),
     youtubeUrl: z.string().url().optional(),
@@ -43,6 +46,10 @@ const services = defineCollection({
     title: z.string(),
     tagline: z.string(),
     order: z.number(),
+    /** 3–5 scannable bullets shown on the services page. */
+    bullets: z.array(z.string()).optional(),
+    /** "Who this is for" one-liner shown under the bullets. */
+    audience: z.string().optional(),
   }),
 });
 

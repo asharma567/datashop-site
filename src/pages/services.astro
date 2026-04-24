@@ -1,56 +1,86 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ClientReel from '../components/ClientReel.astro';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
-const rendered = await Promise.all(
-  services.map(async (s) => ({ entry: s, ...(await render(s)) }))
-);
 ---
 
 <BaseLayout title="What we do">
+  <!-- Hero -->
   <section class="mx-auto max-w-4xl px-6 pt-20 pb-14">
     <p class="eyebrow">What we do</p>
     <h1
       class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
     >
-      Two shapes of <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">engagement</span>.
+      Two shapes of
+      <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">
+        engagement
+      </span>.
     </h1>
     <p class="mt-6 text-lg text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
-      We're deliberate about scope. These are the two engagements we've done enough times to
-      know we can deliver — and we won't pretend otherwise.
+      We're deliberate about scope. These are the two engagements we've done enough times to know
+      we can deliver.
     </p>
   </section>
 
-  {rendered.map(({ entry, Content }, i) => (
-    <section
-      id={entry.id}
-      class="mx-auto max-w-4xl px-6 py-16 border-t border-[var(--color-border)]"
-    >
-      <div
-        class="eyebrow"
-        style={`color: ${i === 0 ? 'var(--color-accent)' : 'var(--color-cool)'}`}
-      >
-        {i === 0 ? '01 / Org-wide transformation' : '02 / MVP → production'}
-      </div>
-      <h2
-        class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.01em]"
-      >
-        {entry.data.title}
-      </h2>
-      <p class="mt-5 text-lg text-[var(--color-fg-muted)] leading-relaxed">
-        {entry.data.tagline}
-      </p>
-      <div class="mt-10 prose prose-invert max-w-none">
-        <Content />
-      </div>
-    </section>
-  ))}
+  <!-- Service cards -->
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid md:grid-cols-2 gap-5">
+      {services.map((service, i) => (
+        <article
+          id={service.id}
+          class="brackets p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)]"
+        >
+          <div class="eyebrow" style={`color: ${i === 0 ? 'var(--color-accent)' : 'var(--color-cool)'}`}>
+            {i === 0 ? '01 / Org-wide' : '02 / MVP → scale'}
+          </div>
+          <h2
+            class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-tight text-[var(--color-fg)]"
+          >
+            {service.data.title}
+          </h2>
+          <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">{service.data.tagline}</p>
 
-  <section class="mx-auto max-w-4xl px-6 py-24 border-t border-[var(--color-border)]">
+          {service.data.bullets && service.data.bullets.length > 0 && (
+            <ul class="mt-6 space-y-3">
+              {service.data.bullets.map((b) => (
+                <li class="flex gap-3 text-[15px] text-[var(--color-fg)] leading-relaxed">
+                  <span
+                    class="mt-2 shrink-0 h-[5px] w-[5px] rounded-full"
+                    style={`background: ${i === 0 ? 'var(--color-accent)' : 'var(--color-cool)'}`}
+                    aria-hidden="true"
+                  ></span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {service.data.audience && (
+            <p class="mt-8 pt-6 border-t border-[var(--color-border)] text-sm text-[var(--color-fg-muted)] leading-relaxed">
+              <span class="eyebrow mr-2">Who this is for</span>
+              {service.data.audience}
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Client reel -->
+  <section class="border-t border-[var(--color-border)]">
+    <div class="mx-auto max-w-6xl px-6 pt-10">
+      <p class="eyebrow">Trusted to ship production systems</p>
+    </div>
+    <ClientReel />
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-4xl px-6 py-20 border-t border-[var(--color-border)]">
     <a
       href="/contact"
-      class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-bg)] px-5 py-3 rounded-full hover:bg-[var(--color-fg)] transition-colors font-medium text-[14px]"
+      class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
     >
       Start a conversation
       <span aria-hidden="true">→</span>

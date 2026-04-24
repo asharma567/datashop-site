@@ -1,0 +1,34 @@
+---
+interface Props {
+  videoId: string;
+  title: string;
+  /** Playback start offset in seconds. */
+  start?: number;
+  /** Explicit CSS aspect ratio, defaults to 16/9. */
+  aspect?: string;
+}
+
+const { videoId, title, start, aspect = '16 / 9' } = Astro.props;
+
+const params = new URLSearchParams({ rel: '0', modestbranding: '1' });
+if (start) params.set('start', String(start));
+const src = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+---
+
+<div class="yt-embed rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-border)] bg-black" style={`aspect-ratio: ${aspect};`}>
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+    allowfullscreen
+    class="w-full h-full"
+  ></iframe>
+</div>
+
+<style>
+  .yt-embed {
+    display: block;
+  }
+</style>
