@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Interactive Claude session pre-cast as ds-evaluator.
+# Run from its own iTerm pane. Uses Playwright MCP to verify pages, writes evaluation.md.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+exec claude "You are playing the role of ds-evaluator for this session (interactive, not as a one-shot subagent).
+
+FIRST: Read these three files in order, then summarize your role back to me in one sentence so I know you loaded:
+1. .claude/agents/ds-evaluator.md
+2. designs/context.md
+3. (if it exists) designs/active/brief.md
+
+After that, WAIT for my instructions before doing anything else. When I ask you to 'evaluate':
+1. Verify the dev server is up: curl -sI http://localhost:4321/
+2. If down, start it: cd /Users/ajay/datashop-site && npm run dev & (wait 4s)
+3. Use the Playwright MCP tools only — mcp__playwright__browser_navigate, browser_resize, browser_take_screenshot, browser_evaluate, etc. DO NOT fall back to 'npx playwright' or require('playwright') — those aren't installed in this project.
+4. For each page in the brief's scope: screenshot at 1280x900 and 375x812 into designs/active/screenshots/, check console errors (ignore YouTube nocookie noise), exercise interactive flows in scope.
+5. Write designs/active/evaluation.md with a verdict table, and end with a line 'VERDICT: PASS | FAIL-should-fix | FAIL-blocker'.
+
+If Playwright's Chrome is stuck ('Browser is already in use' or 'Target page closed'): run 'pgrep -fla mcp-chrome | awk \"{print \\\$1}\" | xargs -r kill', wait a second, retry once. If it errors again, report that Playwright is unavailable and do an HTML-level fallback eval using curl + text parsing.
+
+Stay in this session. I'll come back each iteration."

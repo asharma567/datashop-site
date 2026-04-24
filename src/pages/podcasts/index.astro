@@ -41,47 +41,49 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
     {episodes.length === 0 ? (
       <p class="text-[var(--color-fg-muted)] italic">Episodes coming soon.</p>
     ) : (
-      <div class="grid md:grid-cols-2 gap-8 md:gap-10">
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6">
         {episodes.map((ep) => (
-          <article class="flex flex-col">
+          <article class="brackets flex flex-col bg-[var(--color-bg-elev)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden transition-colors hover:border-[var(--color-border-strong)]">
             {ep.data.videoId && (
               <YouTubeEmbed videoId={ep.data.videoId} title={ep.data.title} />
             )}
-            <div class="mt-5 flex items-center gap-3">
-              <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+            <div class="p-5 flex flex-col flex-1">
+              <span class="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-[var(--color-accent)]">
                 EP {String(ep.data.episode).padStart(2, '0')}
               </span>
-              <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
-                {dateFormat.format(ep.data.published)}
-              </span>
-              {ep.data.duration && (
-                <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
-                  {ep.data.duration}
-                </span>
+              <a href={`/podcasts/${ep.id}`} class="mt-2 group">
+                <h2
+                  class="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-fg)] group-hover:text-[var(--color-accent)] transition-colors"
+                >
+                  {ep.data.title}
+                </h2>
+              </a>
+              {ep.data.guest && (
+                <p class="mt-1 text-sm text-[var(--color-fg-muted)]">
+                  With {ep.data.guest}{ep.data.guestTitle ? `, ${ep.data.guestTitle}` : ''}
+                </p>
               )}
-            </div>
-            <a href={`/podcasts/${ep.id}`} class="mt-2 group">
-              <h2
-                class="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--color-fg)] group-hover:text-[var(--color-accent)] transition-colors"
-              >
-                {ep.data.title}
-              </h2>
-            </a>
-            {ep.data.guest && (
-              <p class="mt-1 text-sm text-[var(--color-fg-muted)]">
-                With {ep.data.guest}{ep.data.guestTitle ? `, ${ep.data.guestTitle}` : ''}
+              <div class="mt-2 flex items-center gap-3">
+                <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+                  {dateFormat.format(ep.data.published)}
+                </span>
+                {ep.data.duration && (
+                  <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">
+                    {ep.data.duration}
+                  </span>
+                )}
+              </div>
+              <p class="mt-3 text-[var(--color-fg-muted)] leading-relaxed text-sm flex-1">
+                {ep.data.description}
               </p>
-            )}
-            <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">
-              {ep.data.description}
-            </p>
-            <a
-              href={`/podcasts/${ep.id}`}
-              class="mt-5 inline-flex items-center gap-2 text-sm text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors self-start"
-            >
-              Show notes
-              <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-            </a>
+              <a
+                href={`/podcasts/${ep.id}`}
+                class="mt-4 inline-flex items-center gap-2 text-sm text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors self-start"
+              >
+                Show notes
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </article>
         ))}
       </div>
