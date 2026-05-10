@@ -7,9 +7,9 @@ const studies = (await getCollection('caseStudies')).sort(
 );
 
 const accents = [
-  'var(--color-accent)',
-  'var(--color-cool)',
-  'var(--color-accent-soft)',
+  'var(--color-fg-muted)',
+  'var(--color-fg-muted)',
+  'var(--color-fg-muted)',
 ];
 ---
 
@@ -35,7 +35,7 @@ const accents = [
         {studies.map((study, i) => (
           <a
             href={`/case-studies/${study.id}`}
-            class="brackets group block p-8 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] transition-colors"
+            class="group block p-8 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
           >
             <div class="flex items-center justify-between mb-4">
               <span class="eyebrow" style={`color: ${accents[i % accents.length]}`}>

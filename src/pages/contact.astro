@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../consts';
 ---
 
 <BaseLayout title="Contact">
@@ -76,66 +75,87 @@ import { SITE } from '../consts';
         ></textarea>
       </label>
 
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute left-[-9999px] h-0 w-0 opacity-0" />
+
       <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
         <button
+          id="contact-submit"
           type="submit"
-          class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
+          class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3.5 rounded-lg hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[15px] disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Send
+          <span data-label-default>Send</span>
+          <span data-label-sending class="hidden">Sending…</span>
           <span aria-hidden="true">→</span>
         </button>
         <p class="text-xs text-[var(--color-fg-subtle)]">
-          Submitting opens your default mail client addressed to
-          <a href={`mailto:${SITE.email}`} class="underline hover:text-[var(--color-fg)]">{SITE.email}</a>.
+          Submissions go straight to our team. We'll reply from a real person within two business days.
         </p>
       </div>
-    </form>
 
-    <div class="mt-14 pt-10 border-t border-[var(--color-border)]">
-      <p class="eyebrow mb-4">Prefer just to email?</p>
-      <a
-        href={`mailto:${SITE.email}?subject=New%20engagement%20enquiry`}
-        class="font-[family-name:var(--font-display)] text-xl md:text-2xl font-medium text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors"
-      >
-        {SITE.email} →
-      </a>
-    </div>
+      <div id="contact-status" class="hidden" role="status" aria-live="polite"></div>
+    </form>
   </section>
 </BaseLayout>
 
-<script is:inline define:vars={{ email: SITE.email }}>
+<script is:inline>
   const form = document.getElementById('contact-form');
+  const status = document.getElementById('contact-status');
+  const submit = document.getElementById('contact-submit');
+  const labelDefault = submit?.querySelector('[data-label-default]');
+  const labelSending = submit?.querySelector('[data-label-sending]');
+
+  function setStatus(kind, text) {
+    if (!status) return;
+    status.classList.remove('hidden');
+    status.className = 'mt-2 text-sm rounded-[var(--radius-md)] px-4 py-3 ' +
+      (kind === 'ok'
+        ? 'bg-[var(--color-accent)]/15 text-[var(--color-accent)] border border-[var(--color-accent)]/30'
+        : 'bg-red-500/10 text-red-300 border border-red-500/30');
+    status.textContent = text;
+  }
+
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = /** @type {HTMLFormElement} */ (form);
       const d = new FormData(f);
-      const name = (d.get('name') || '').toString().trim();
-      const mail = (d.get('email') || '').toString().trim();
-      const company = (d.get('company') || '').toString().trim();
-      const engagement = (d.get('engagement') || '').toString().trim();
-      const message = (d.get('message') || '').toString().trim();
+      const payload = {
+        name: (d.get('name') || '').toString().trim(),
+        email: (d.get('email') || '').toString().trim(),
+        company: (d.get('company') || '').toString().trim(),
+        engagement: (d.get('engagement') || '').toString().trim(),
+        message: (d.get('message') || '').toString().trim(),
+        company_website: (d.get('company_website') || '').toString().trim(),
+      };
 
-      if (!name || !mail || !message) {
-        alert('Please fill in your name, email, and a short message.');
+      if (!payload.name || !payload.email || !payload.message) {
+        setStatus('err', 'Please fill in your name, email, and a short message.');
         return;
       }
 
-      const subject = `New engagement enquiry — ${name}${company ? ' · ' + company : ''}`;
-      const bodyLines = [
-        `From: ${name} <${mail}>`,
-        company ? `Company: ${company}` : null,
-        engagement ? `Interested in: ${engagement}` : null,
-        '',
-        message,
-        '',
-        '— sent via datashop.ai contact form',
-      ].filter((l) => l !== null);
+      submit?.setAttribute('disabled', 'true');
+      labelDefault?.classList.add('hidden');
+      labelSending?.classList.remove('hidden');
 
-      const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        bodyLines.join('\n')
-      )}`;
-      window.location.href = href;
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error || 'Send failed');
+        }
+        f.reset();
+        setStatus('ok', "Thanks — your message is on its way. We'll be in touch within two business days.");
+      } catch (err) {
+        setStatus('err', 'Something went wrong sending your message. Please try again in a moment.');
+      } finally {
+        submit?.removeAttribute('disabled');
+        labelDefault?.classList.remove('hidden');
+        labelSending?.classList.add('hidden');
+      }
     });
   }
 </script>

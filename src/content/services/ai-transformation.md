@@ -1,12 +1,10 @@
 ---
-title: AI transformation for the whole organization
-tagline: We work with leadership to reshape how your org operates around AI — from process and tooling to hiring, governance, and the hard question of what stops being human work.
+title: AI transformation, org-wide
+tagline: Leadership-level work to reshape how your organization runs on AI — strategy, operating model, and the builds that anchor it.
 order: 1
 bullets:
-  - Executive workshops and systems mapping — where AI actually moves the business, not where it's a demo
-  - Opportunity prioritization and a roadmap that reaches past a single team
-  - Operating model design — tooling, org structure, review practices, governance
-  - Hands-on build of the two or three highest-leverage initiatives, with your people alongside ours
-  - Leadership coaching and measurement so the change sticks after we leave
-audience: CEOs, COOs, and function leaders at organizations with real revenue and complexity — not startups looking for a first prototype.
+  - Where AI actually moves revenue, not where it demos well
+  - New operating model — tooling, structure, governance, hiring
+  - Hands-on builds of the two or three highest-leverage bets
+audience: CEOs, COOs, and function leaders at organizations with real revenue and complexity. Not startups chasing a first prototype.
 ---

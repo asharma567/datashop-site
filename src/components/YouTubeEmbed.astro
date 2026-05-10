@@ -2,9 +2,7 @@
 interface Props {
   videoId: string;
   title: string;
-  /** Playback start offset in seconds. */
   start?: number;
-  /** Explicit CSS aspect ratio, defaults to 16/9. */
   aspect?: string;
 }
 
@@ -13,9 +11,13 @@ const { videoId, title, start, aspect = '16 / 9' } = Astro.props;
 const params = new URLSearchParams({ rel: '0', modestbranding: '1' });
 if (start) params.set('start', String(start));
 const src = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+const poster = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 ---
 
-<div class="yt-embed rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-border)] bg-black" style={`aspect-ratio: ${aspect};`}>
+<div
+  class="yt-embed rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-border)] bg-black bg-center bg-cover"
+  style={`aspect-ratio: ${aspect}; background-image: url(${poster});`}
+>
   <iframe
     src={src}
     title={title}

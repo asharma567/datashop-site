@@ -1,25 +1,29 @@
 ---
 import { SITE, NAV } from '../consts';
 const year = new Date().getFullYear();
+const social = [
+  { label: 'YouTube', href: 'https://www.youtube.com/@datashop' },
+];
 ---
 
 <footer class="border-t border-[var(--color-border)] mt-24">
   <div class="mx-auto max-w-6xl px-6 py-14 grid md:grid-cols-3 gap-10">
     <div>
-      <div class="flex items-center gap-2">
-        <span
-          class="inline-block h-2 w-2 rounded-full bg-[var(--color-accent)]"
+      <div class="flex items-center gap-2.5">
+        <img
+          src="/brand/logo-mark.png"
+          alt=""
           aria-hidden="true"
-        ></span>
+          width="698"
+          height="950"
+          class="h-8 w-auto"
+        />
         <span
           class="font-[family-name:var(--font-display)] font-semibold tracking-tight text-[var(--color-fg)]"
         >
           {SITE.name}
         </span>
       </div>
-      <p class="mt-3 max-w-xs text-sm text-[var(--color-fg-muted)] leading-relaxed">
-        {SITE.description}
-      </p>
     </div>
 
     <div>
@@ -36,14 +40,24 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <div class="eyebrow mb-4">Contact</div>
+      <div class="eyebrow mb-4">Get in touch</div>
       <a
-        href={`mailto:${SITE.email}`}
-        class="block text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors font-[family-name:var(--font-display)] text-lg"
+        href="/contact"
+        class="inline-flex items-center gap-2 text-[var(--color-fg)] hover:text-[var(--color-fg-muted)] transition-colors font-[family-name:var(--font-display)] text-lg group"
       >
-        {SITE.email}
+        <span>Start a conversation</span>
+        <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
       </a>
-      <p class="mt-4 text-xs text-[var(--color-fg-subtle)]">
+      <ul class="mt-5 flex gap-4 text-sm">
+        {social.map((s) => (
+          <li>
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]">
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-5 text-xs text-[var(--color-fg-subtle)]">
         &copy; {year} {SITE.name}. All rights reserved.
       </p>
     </div>

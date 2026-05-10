@@ -43,17 +43,17 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
     ) : (
       <div class="grid md:grid-cols-2 gap-5 md:gap-6">
         {episodes.map((ep) => (
-          <article class="brackets flex flex-col bg-[var(--color-bg-elev)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden transition-colors hover:border-[var(--color-border-strong)]">
+          <article class="flex flex-col bg-[var(--color-bg-elev)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden transition-colors hover:border-[var(--color-border-strong)]">
             {ep.data.videoId && (
               <YouTubeEmbed videoId={ep.data.videoId} title={ep.data.title} />
             )}
             <div class="p-5 flex flex-col flex-1">
-              <span class="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-[var(--color-accent)]">
+              <span class="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.14em] text-[var(--color-fg-muted)]">
                 EP {String(ep.data.episode).padStart(2, '0')}
               </span>
               <a href={`/podcasts/${ep.id}`} class="mt-2 group">
                 <h2
-                  class="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-fg)] group-hover:text-[var(--color-accent)] transition-colors"
+                  class="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-fg)] group-hover:text-[var(--color-fg-muted)] transition-colors"
                 >
                   {ep.data.title}
                 </h2>
@@ -78,7 +78,7 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
               </p>
               <a
                 href={`/podcasts/${ep.id}`}
-                class="mt-4 inline-flex items-center gap-2 text-sm text-[var(--color-fg)] hover:text-[var(--color-accent)] transition-colors self-start"
+                class="mt-4 inline-flex items-center gap-2 text-sm text-[var(--color-fg)] hover:text-[var(--color-fg-muted)] transition-colors self-start"
               >
                 Show notes
                 <span aria-hidden="true">→</span>

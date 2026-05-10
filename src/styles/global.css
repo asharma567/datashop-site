@@ -2,22 +2,22 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* Surface palette — matte warm charcoal, matches the Datashop YouTube banner */
-  --color-bg: #26262a;
-  --color-bg-elev: #2f2f34;
-  --color-bg-muted: #36363b;
-  --color-surface: #3d3d43;
+  /* True near-black canvas, restrained warmth on elevations */
+  --color-bg: #0b0b0f;
+  --color-bg-elev: #141418;
+  --color-bg-muted: #1a1a1f;
+  --color-surface: #22222a;
 
   /* Foreground */
   --color-fg: #f6f6f5;
   --color-fg-muted: #b0b0ad;
-  --color-fg-subtle: #76767a;
+  --color-fg-subtle: #9a9a9d;
 
   /* Borders */
-  --color-border: #3a3a3f;
-  --color-border-strong: #50505a;
+  --color-border: #1f1f24;
+  --color-border-strong: #2a2a30;
 
-  /* Brand accents — electric lime primary, matching the podcast cover */
+  /* Brand accent — used sparingly */
   --color-accent: #ddff66;
   --color-accent-soft: #e9ff99;
   --color-accent-dim: #9fb836;
@@ -60,7 +60,30 @@ body {
   color: var(--color-on-accent);
 }
 
-/* Matte film-grain */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 12px;
+  z-index: 100;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Matte film-grain — restrained */
 .grain {
   position: relative;
   isolation: isolate;
@@ -70,63 +93,38 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.035 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  opacity: 0.4;
+  opacity: 0.12;
   mix-blend-mode: overlay;
 }
 
-/* Corner brackets — lime on hover */
-.brackets {
-  position: relative;
-}
-.brackets::before,
-.brackets::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--color-accent);
-  opacity: 0;
-  transition: opacity 240ms cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-.brackets::before {
-  top: -1px;
-  left: -1px;
-  border-right: none;
-  border-bottom: none;
-}
-.brackets::after {
-  bottom: -1px;
-  right: -1px;
-  border-left: none;
-  border-top: none;
-}
-.brackets:hover::before,
-.brackets:hover::after,
-.brackets:focus-within::before,
-.brackets:focus-within::after {
-  opacity: 1;
-}
-
-/* Prose — lime links, lime quote bar */
+/* Prose */
 .prose {
   --tw-prose-body: var(--color-fg-muted);
   --tw-prose-headings: var(--color-fg);
   --tw-prose-lead: var(--color-fg-muted);
-  --tw-prose-links: var(--color-accent);
+  --tw-prose-links: var(--color-fg);
   --tw-prose-bold: var(--color-fg);
   --tw-prose-counters: var(--color-fg-subtle);
   --tw-prose-bullets: var(--color-fg-subtle);
   --tw-prose-hr: var(--color-border);
   --tw-prose-quotes: var(--color-fg);
-  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-quote-borders: var(--color-border-strong);
   --tw-prose-captions: var(--color-fg-subtle);
-  --tw-prose-code: var(--color-accent);
+  --tw-prose-code: var(--color-fg);
   --tw-prose-pre-code: var(--color-fg);
   --tw-prose-pre-bg: var(--color-bg-elev);
   --tw-prose-th-borders: var(--color-border);
   --tw-prose-td-borders: var(--color-border);
+}
+.prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  text-decoration-color: var(--color-accent);
 }
 .prose blockquote {
   font-family: var(--font-editorial);
@@ -139,9 +137,9 @@ body {
 /* Eyebrow label */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-fg-subtle);
+  color: var(--color-fg-muted);
 }

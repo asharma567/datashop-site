@@ -12,10 +12,19 @@ const featuredStudies = (await getCollection('caseStudies'))
 
 <BaseLayout>
   <!-- Hero -->
-  <section class="grain relative mx-auto max-w-6xl px-6 pt-20 pb-24">
+  <section class="grain relative mx-auto max-w-6xl px-6 pt-20 pb-24 overflow-hidden">
+    <img
+      src="/brand/logo-mark.png"
+      alt=""
+      aria-hidden="true"
+      width="698"
+      height="950"
+      class="pointer-events-none select-none absolute left-1/2 top-1/2 translate-x-[70%] -translate-y-1/2 h-[260px] md:h-[360px] w-auto opacity-[0.05] md:opacity-[0.07]"
+    />
+    <div class="relative">
     <p class="eyebrow">AI &nbsp;·&nbsp; Data engineering &nbsp;·&nbsp; Crypto</p>
     <h1
-      class="mt-6 font-[family-name:var(--font-display)] text-[44px] md:text-[76px] font-semibold tracking-[-0.02em] leading-[1.02] text-[var(--color-fg)] max-w-4xl"
+      class="mt-6 font-[family-name:var(--font-display)] text-[44px] md:text-[68px] font-semibold tracking-[-0.035em] md:tracking-[-0.04em] leading-[0.98] text-[var(--color-fg)] max-w-4xl"
     >
       Artificial intelligence.
       <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">
@@ -25,26 +34,25 @@ const featuredStudies = (await getCollection('caseStudies'))
     <p
       class="mt-8 text-lg md:text-xl text-[var(--color-fg-muted)] leading-relaxed max-w-2xl"
     >
-      We're a specialized engineering firm. Two things we do well: transform how an entire
-      organization operates around AI, and take a working MVP and turn it into a production
-      system that scales. Quietly. At latency that doesn't embarrass you.
+      Two engagements: reshape how an organization runs on AI, or take a working MVP into
+      production at scale.
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
       <a
         href="/contact"
-        class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
+        class="inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3.5 rounded-lg hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[15px]"
       >
         Start a conversation
         <span aria-hidden="true">→</span>
       </a>
       <a
         href="/case-studies"
-        class="inline-flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-3 rounded-full hover:border-[var(--color-fg)] transition-colors font-medium text-[14px]"
+        class="inline-flex items-center gap-2 border border-[var(--color-border-strong)] text-[var(--color-fg)] px-5 py-3.5 rounded-lg hover:border-[var(--color-fg)] transition-colors font-medium text-[15px]"
       >
         See our work
       </a>
     </div>
-
+    </div>
   </section>
 
   <!-- Client reel — escapes the page max-width to run edge-to-edge -->
@@ -61,7 +69,7 @@ const featuredStudies = (await getCollection('caseStudies'))
       <div>
         <p class="eyebrow">What we do</p>
         <h2
-          class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.01em] text-[var(--color-fg)] max-w-2xl"
+          class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-[var(--color-fg)] max-w-2xl"
         >
           Two things, done thoroughly.
         </h2>
@@ -77,13 +85,13 @@ const featuredStudies = (await getCollection('caseStudies'))
       {services.map((service, i) => (
         <a
           href={`/services#${service.id}`}
-          class="brackets group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] transition-colors"
+          class="group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
         >
-          <div class="eyebrow" style={`color: ${i === 0 ? 'var(--color-accent)' : 'var(--color-cool)'}`}>
+          <div class="eyebrow">
             {i === 0 ? '01 / Org-wide' : '02 / MVP → scale'}
           </div>
           <h3
-            class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-tight text-[var(--color-fg)]"
+            class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-[-0.025em] text-[var(--color-fg)]"
           >
             {service.data.title}
           </h3>
@@ -95,6 +103,11 @@ const featuredStudies = (await getCollection('caseStudies'))
         </a>
       ))}
     </div>
+    <div class="mt-8 md:hidden">
+      <a href="/services" class="text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]">
+        Full capabilities →
+      </a>
+    </div>
   </section>
 
   <!-- Featured case studies -->
@@ -104,7 +117,7 @@ const featuredStudies = (await getCollection('caseStudies'))
         <div>
           <p class="eyebrow">Recent work</p>
           <h2
-            class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.01em] max-w-2xl"
+            class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em] max-w-2xl"
           >
             Shipped in weeks, not quarters.
           </h2>
@@ -117,38 +130,40 @@ const featuredStudies = (await getCollection('caseStudies'))
         </a>
       </div>
       <div class="grid md:grid-cols-3 gap-5">
-        {featuredStudies.map((study, i) => {
-          const accents = ['var(--color-accent)', 'var(--color-cool)', 'var(--color-accent-soft)'];
-          return (
-            <a
-              href={`/case-studies/${study.id}`}
-              class="brackets group block p-7 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] transition-colors"
-            >
-              <div class="flex items-center justify-between mb-4">
-                <span class="eyebrow" style={`color: ${accents[i % accents.length]}`}>{study.data.industry}</span>
-                <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">{study.data.client}</span>
-              </div>
-              <h3 class="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-fg)]">
-                {study.data.title}
-              </h3>
-              <p class="mt-3 text-sm text-[var(--color-fg-muted)] leading-relaxed line-clamp-4">
-                {study.data.summary}
-              </p>
-              {study.data.metrics && study.data.metrics.length > 0 && (
-                <div class="mt-6 pt-5 border-t border-[var(--color-border)] flex gap-5">
-                  {study.data.metrics.slice(0, 2).map((m) => (
-                    <div>
-                      <div class="font-[family-name:var(--font-display)] text-lg font-semibold text-[var(--color-fg)]">
-                        {m.value}
-                      </div>
-                      <div class="eyebrow mt-1">{m.label}</div>
+        {featuredStudies.map((study) => (
+          <a
+            href={`/case-studies/${study.id}`}
+            class="group block p-7 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <span class="eyebrow">{study.data.industry}</span>
+              <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-fg-subtle)]">{study.data.client}</span>
+            </div>
+            <h3 class="font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-fg)]">
+              {study.data.title}
+            </h3>
+            <p class="mt-3 text-sm text-[var(--color-fg-muted)] leading-relaxed line-clamp-4">
+              {study.data.summary}
+            </p>
+            {study.data.metrics && study.data.metrics.length > 0 && (
+              <div class="mt-6 pt-5 border-t border-[var(--color-border)] flex gap-5">
+                {study.data.metrics.slice(0, 2).map((m) => (
+                  <div>
+                    <div class="font-[family-name:var(--font-display)] text-lg font-semibold text-[var(--color-fg)]">
+                      {m.value}
                     </div>
-                  ))}
-                </div>
-              )}
-            </a>
-          );
-        })}
+                    <div class="eyebrow mt-1">{m.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+      <div class="mt-8 md:hidden">
+        <a href="/case-studies" class="text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]">
+          All case studies →
+        </a>
       </div>
     </section>
   )}
@@ -156,22 +171,22 @@ const featuredStudies = (await getCollection('caseStudies'))
   <!-- Pullquote / voice block -->
   <section class="mx-auto max-w-4xl px-6 py-24 border-t border-[var(--color-border)] text-center">
     <p class="eyebrow">What we keep saying</p>
-    <blockquote
-      class="mt-6 font-[family-name:var(--font-editorial)] italic text-3xl md:text-5xl font-normal leading-[1.15] tracking-tight text-[var(--color-fg)]"
+    <p
+      class="mt-6 font-[family-name:var(--font-editorial)] italic text-3xl md:text-5xl font-normal leading-[1.15] tracking-[-0.01em] text-[var(--color-fg)]"
     >
       "Most teams don't need another AI pilot. They need the two or three things that actually
       move the business — and the discipline to see them through."
-    </blockquote>
+    </p>
   </section>
 
   <!-- CTA -->
   <section class="mx-auto max-w-6xl px-6 pb-24">
-    <div class="brackets bg-[var(--color-bg-elev)] border border-[var(--color-border)] rounded-[var(--radius-xl)] p-10 md:p-16">
+    <div class="bg-[var(--color-bg-elev)] border border-[var(--color-border)] rounded-[var(--radius-xl)] p-10 md:p-16">
       <div class="grid md:grid-cols-[1.3fr_1fr] gap-10 items-end">
         <div>
-          <p class="eyebrow" style="color: var(--color-accent)">Get in touch</p>
+          <p class="eyebrow">Get in touch</p>
           <h2
-            class="mt-5 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.01em]"
+            class="mt-5 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em]"
           >
             Have an MVP you need to scale, or an organization ready to move on AI?
           </h2>
@@ -183,9 +198,9 @@ const featuredStudies = (await getCollection('caseStudies'))
           </p>
           <a
             href="/contact"
-            class="self-start inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3 rounded-full hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[14px]"
+            class="self-start inline-flex items-center gap-2 bg-[var(--color-accent)] text-[var(--color-on-accent)] px-5 py-3.5 rounded-lg hover:bg-[var(--color-accent-soft)] transition-colors font-medium text-[15px]"
           >
-            Start a conversation
+            Tell us about your project
             <span aria-hidden="true">→</span>
           </a>
         </div>
