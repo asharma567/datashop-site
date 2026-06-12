@@ -66,7 +66,7 @@ const isActive = (href: string) =>
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="17" x2="21" y2="17"></line>
         </svg>
-        <svg id="mobile-nav-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+        <svg id="mobile-nav-icon-close" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="6" y1="6" x2="18" y2="18"></line>
           <line x1="6" y1="18" x2="18" y2="6"></line>
         </svg>
@@ -124,14 +124,14 @@ const isActive = (href: string) =>
         panel.removeAttribute('hidden');
         btn.setAttribute('aria-expanded', 'true');
         btn.setAttribute('aria-label', 'Close menu');
-        iconOpen.setAttribute('hidden', '');
-        iconClose.removeAttribute('hidden');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
       } else {
         panel.setAttribute('hidden', '');
         btn.setAttribute('aria-expanded', 'false');
         btn.setAttribute('aria-label', 'Open menu');
-        iconOpen.removeAttribute('hidden');
-        iconClose.setAttribute('hidden', '');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
       }
     };
 

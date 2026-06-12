@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -18,6 +18,9 @@
     "tailwindcss": "^4.2.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@cloudflare/workers-types": "^4.20260612.1",
+    "typescript": "^5.9.3",
     "wrangler": "^4.84.1"
   }
 }

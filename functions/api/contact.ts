@@ -1,3 +1,5 @@
+/// <reference types="@cloudflare/workers-types" />
+
 interface Env {
   RESEND_API_KEY: string;
   CONTACT_TO_EMAIL: string;
@@ -19,6 +21,10 @@ const json = (status: number, body: unknown) =>
     headers: { 'Content-Type': 'application/json' },
   });
 
+// User-facing copy for failures on our side — the form displays `error` verbatim,
+// so the lead always gets a working fallback channel.
+const FALLBACK_ERROR = 'Something went wrong — email me directly at ajay@datashop.ai';
+
 const escapeHtml = (s: string) =>
   s
     .replace(/&/g, '&amp;')
@@ -29,7 +35,8 @@ const escapeHtml = (s: string) =>
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!env.RESEND_API_KEY || !env.CONTACT_TO_EMAIL) {
-    return json(500, { error: 'Mail not configured' });
+    console.error('Contact form misconfigured: missing RESEND_API_KEY or CONTACT_TO_EMAIL');
+    return json(500, { error: FALLBACK_ERROR });
   }
 
   let p: Payload;
@@ -93,7 +100,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
     console.error('Resend send failed', res.status, detail);
-    return json(502, { error: 'Send failed' });
+    return json(502, { error: FALLBACK_ERROR });
   }
 
   return json(200, { ok: true });

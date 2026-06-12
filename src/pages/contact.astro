@@ -137,6 +137,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       labelDefault?.classList.add('hidden');
       labelSending?.classList.remove('hidden');
 
+      const fallbackError = 'Something went wrong — email me directly at ajay@datashop.ai';
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
@@ -144,13 +145,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           body: JSON.stringify(payload),
         });
         if (!res.ok) {
+          // Surface the server's message (it's written for users); otherwise the direct-email fallback.
           const body = await res.json().catch(() => ({}));
-          throw new Error(body.error || 'Send failed');
+          setStatus('err', typeof body.error === 'string' && body.error ? body.error : fallbackError);
+          return;
         }
         f.reset();
         setStatus('ok', "Thanks — your message is on its way. We'll be in touch within two business days.");
       } catch (err) {
-        setStatus('err', 'Something went wrong sending your message. Please try again in a moment.');
+        setStatus('err', fallbackError);
       } finally {
         submit?.removeAttribute('disabled');
         labelDefault?.classList.remove('hidden');
