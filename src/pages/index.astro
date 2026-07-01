@@ -8,6 +8,8 @@ const featuredStudies = (await getCollection('caseStudies'))
   .filter((s) => s.data.featured)
   .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
   .slice(0, 3);
+
+const serviceEyebrows = ['01 / Org-wide', '02 / MVP → scale', '03 / Control plane'];
 ---
 
 <BaseLayout>
@@ -34,8 +36,8 @@ const featuredStudies = (await getCollection('caseStudies'))
     <p
       class="mt-8 text-lg md:text-xl text-[var(--color-fg-muted)] leading-relaxed max-w-2xl"
     >
-      Two engagements: reshape how an organization runs on AI, or take a working MVP into
-      production at scale.
+      Three engagements: reshape how an organization runs on AI, take a working MVP into
+      production at scale, or put operating discipline around AI spend.
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
       <a
@@ -71,7 +73,7 @@ const featuredStudies = (await getCollection('caseStudies'))
         <h2
           class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-[var(--color-fg)] max-w-2xl"
         >
-          Two things, done thoroughly.
+          Three things, done thoroughly.
         </h2>
       </div>
       <a
@@ -81,14 +83,14 @@ const featuredStudies = (await getCollection('caseStudies'))
         Full capabilities →
       </a>
     </div>
-    <div class="grid md:grid-cols-2 gap-5">
+    <div class="grid md:grid-cols-3 gap-5">
       {services.map((service, i) => (
         <a
           href={`/services#${service.id}`}
           class="group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
         >
           <div class="eyebrow">
-            {i === 0 ? '01 / Org-wide' : '02 / MVP → scale'}
+            {serviceEyebrows[i]}
           </div>
           <h3
             class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-[-0.025em] text-[var(--color-fg)]"

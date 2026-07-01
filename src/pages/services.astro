@@ -4,6 +4,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ClientReel from '../components/ClientReel.astro';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const serviceDetails = [
+  {
+    icon: '/icons/org-wide.png',
+    eyebrow: '01 / Org-wide',
+    accent: 'var(--color-accent)',
+  },
+  {
+    icon: '/icons/mvp-scale.png',
+    eyebrow: '02 / MVP → scale',
+    accent: 'var(--color-fg-muted)',
+  },
+  {
+    icon: '/icons/org-wide.png',
+    eyebrow: '03 / Control plane',
+    accent: 'var(--color-accent)',
+  },
+];
 ---
 
 <BaseLayout title="What we do">
@@ -13,24 +31,22 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     <h1
       class="mt-6 font-[family-name:var(--font-display)] text-5xl md:text-7xl font-semibold tracking-[-0.02em] leading-[1.02]"
     >
-      Two shapes of
+      Three shapes of
       <span class="font-[family-name:var(--font-editorial)] italic font-normal text-[var(--color-accent)]">
         engagement
       </span>.
     </h1>
     <p class="mt-6 text-lg text-[var(--color-fg-muted)] leading-relaxed max-w-2xl">
-      We're deliberate about scope. These are the two engagements we've done enough times to know
+      We're deliberate about scope. These are the three engagements we've done enough times to know
       we can deliver.
     </p>
   </section>
 
   <!-- Service cards -->
   <section class="mx-auto max-w-6xl px-6 pb-20">
-    <div class="grid md:grid-cols-2 gap-5">
+    <div class="grid md:grid-cols-3 gap-5">
       {services.map((service, i) => {
-        const icon = i === 0 ? '/icons/org-wide.png' : '/icons/mvp-scale.png';
-        const eyebrow = i === 0 ? '01 / Org-wide' : '02 / MVP → scale';
-        const accent = i === 0 ? 'var(--color-accent)' : 'var(--color-fg-muted)';
+        const { icon, eyebrow, accent } = serviceDetails[i];
         return (
           <article
             id={service.id}
