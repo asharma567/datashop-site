@@ -168,6 +168,61 @@ const featuredStudies = (await getCollection('caseStudies'))
     </section>
   )}
 
+  <!-- Pain points -->
+  <section class="mx-auto max-w-6xl px-6 py-24 border-t border-[var(--color-border)]">
+    <div class="mb-12">
+      <p class="eyebrow">Where teams get stuck</p>
+      <h2
+        class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-[var(--color-fg)] max-w-2xl"
+      >
+        The problems we hear every week.
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-5">
+      <a
+        href="/contact"
+        class="group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
+      >
+        <div class="eyebrow">Legacy web → AI-ready</div>
+        <h3
+          class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-[-0.025em] text-[var(--color-fg)]"
+        >
+          Your website was built for humans. Agents can't use it.
+        </h3>
+        <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">
+          AI agents are becoming your busiest visitors — browsing, comparing, transacting. We
+          retrofit older web infrastructure for the agent era: tool-calling interfaces,
+          machine-readable structure, and GUIs both people and agents can operate.
+        </p>
+        <span class="inline-flex items-center gap-2 mt-6 text-sm text-[var(--color-fg)]">
+          Make your stack agent-ready
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+        </span>
+      </a>
+      <a
+        href="/contact"
+        class="group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
+      >
+        <div class="eyebrow">AI spend governance</div>
+        <h3
+          class="mt-4 font-[family-name:var(--font-display)] text-2xl md:text-3xl font-semibold tracking-[-0.025em] text-[var(--color-fg)]"
+        >
+          Stop token maxxing. Tie AI spend to ROI.
+        </h3>
+        <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">
+          Teams burn tokens like usage equals progress — the result is slop, misuse, and a runaway
+          bill. We build the control plane: role-aware budgets (an intern and a staff engineer
+          shouldn't spend alike), best-practice workflows, and ROI measured per pod, product, and
+          team.
+        </p>
+        <span class="inline-flex items-center gap-2 mt-6 text-sm text-[var(--color-fg)]">
+          Put discipline around AI usage
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
   <!-- Pullquote / voice block -->
   <section class="mx-auto max-w-4xl px-6 py-24 border-t border-[var(--color-border)] text-center">
     <p class="eyebrow">What we keep saying</p>
