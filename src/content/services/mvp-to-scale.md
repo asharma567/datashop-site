@@ -2,6 +2,9 @@
 title: MVP → production scale
 tagline: Your AI prototype works. Now it has to survive real traffic, real data, real customers — without the wheels coming off.
 order: 2
+eyebrow: 02 / MVP → scale
+icon: /icons/mvp-scale.png
+accent: var(--color-fg-muted)
 bullets:
   - Eval infrastructure so you can move fast without regressing
   - Cost and latency engineered for the actual workload

@@ -2,6 +2,9 @@
 title: AI transformation, org-wide
 tagline: Leadership-level work to reshape how your organization runs on AI — strategy, operating model, change management, and the builds that anchor it.
 order: 1
+eyebrow: 01 / Org-wide
+icon: /icons/org-wide.png
+accent: var(--color-accent)
 bullets:
   - Where AI actually moves revenue, not where it demos well
   - New operating model — tooling, structure, governance, hiring

@@ -46,6 +46,12 @@ const services = defineCollection({
     title: z.string(),
     tagline: z.string(),
     order: z.number(),
+    /** Short numbered label shown above each service tile. */
+    eyebrow: z.string(),
+    /** Public icon path used on the services page. */
+    icon: z.string(),
+    /** CSS color token used for tile accents. */
+    accent: z.string().default('var(--color-fg-muted)'),
     /** 3–5 scannable bullets shown on the services page. */
     bullets: z.array(z.string()).optional(),
     /** "Who this is for" one-liner shown under the bullets. */
