@@ -34,8 +34,8 @@ const featuredStudies = (await getCollection('caseStudies'))
     <p
       class="mt-8 text-lg md:text-xl text-[var(--color-fg-muted)] leading-relaxed max-w-2xl"
     >
-      Three engagements: reshape how an organization runs on AI, take a working MVP into
-      production, or make regulated AI defensible.
+      Three ways to work together: reshape how your organization runs on AI, embed engineers
+      to bring your vision to life, or improve the unit economics of your LLM product.
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
       <a
@@ -71,7 +71,7 @@ const featuredStudies = (await getCollection('caseStudies'))
         <h2
           class="mt-4 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-[var(--color-fg)] max-w-2xl"
         >
-          Three things, done thoroughly.
+          Three ways to move your business forward.
         </h2>
       </div>
       <a
@@ -85,7 +85,7 @@ const featuredStudies = (await getCollection('caseStudies'))
       {services.map((service) => (
         <a
           href={`/services#${service.id}`}
-          class="group block p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
+          class="group flex flex-col p-8 md:p-10 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-elev)] hover:bg-[var(--color-bg-muted)] hover:border-[var(--color-border-strong)] transition-colors"
         >
           <div class="eyebrow">{service.data.eyebrow}</div>
           <h3
@@ -93,9 +93,9 @@ const featuredStudies = (await getCollection('caseStudies'))
           >
             {service.data.title}
           </h3>
-          <p class="mt-4 text-[var(--color-fg-muted)] leading-relaxed">{service.data.tagline}</p>
-          <span class="inline-flex items-center gap-2 mt-6 text-sm text-[var(--color-fg)]">
-            Learn more
+          <p class="mt-4 mb-6 text-[var(--color-fg-muted)] leading-relaxed">{service.data.tagline}</p>
+          <span class="inline-flex items-center gap-2 mt-auto text-sm text-[var(--color-fg)]">
+            Explore {service.data.title}
             <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
           </span>
         </a>
@@ -186,7 +186,7 @@ const featuredStudies = (await getCollection('caseStudies'))
           <h2
             class="mt-5 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-semibold tracking-[-0.025em]"
           >
-            Have an MVP to scale, an organization ready to move on AI, or a regulated system that needs to stand up to scrutiny?
+            Have an AI strategy to deliver, a roadmap that needs more engineers, or an agent product that needs better margins?
           </h2>
         </div>
         <div class="flex flex-col gap-4">

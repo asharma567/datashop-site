@@ -1,0 +1,113 @@
+<canvas class="pointer-network" aria-hidden="true"></canvas>
+
+<style>
+  .pointer-network {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('.pointer-network');
+  const context = canvas?.getContext('2d');
+  if (canvas && context) {
+    const ctx = context;
+    const surface = canvas;
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const mouse = matchMedia('(hover: hover) and (pointer: fine)');
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--color-bg-elev').trim();
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let nodes: { x: number; y: number }[] = [];
+    let edges: { a: number; b: number; distance: number }[] = [];
+    const pointer = { x: 0, y: 0, strength: 0, target: 0 };
+
+    function draw() {
+      frame = 0;
+      if (document.hidden) return;
+      pointer.strength += (pointer.target - pointer.strength) * 0.16;
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      for (const edge of edges) {
+        const a = nodes[edge.a];
+        const b = nodes[edge.b];
+        const proximity = Math.max(0, 1 - Math.hypot((a.x + b.x) / 2 - pointer.x, (a.y + b.y) / 2 - pointer.y) / 300);
+        const intensity = proximity * pointer.strength;
+        ctx.globalAlpha = (0.18 + intensity * 0.72) * (1 - edge.distance / 300);
+        ctx.lineWidth = 0.6 + intensity;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+      for (const node of nodes) {
+        const intensity = Math.max(0, 1 - Math.hypot(node.x - pointer.x, node.y - pointer.y) / 260) * pointer.strength;
+        ctx.globalAlpha = 0.25 + intensity * 0.7;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 1.2 + intensity * 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (Math.abs(pointer.strength - pointer.target) > 0.005) schedule();
+    }
+
+    function schedule() {
+      if (!frame && !document.hidden) frame = requestAnimationFrame(draw);
+    }
+
+    function resize() {
+      width = innerWidth;
+      height = innerHeight;
+      const scale = Math.min(devicePixelRatio || 1, 2);
+      surface.width = Math.round(width * scale);
+      surface.height = Math.round(height * scale);
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      // A repeatable, lightly jittered grid keeps the network evenly distributed.
+      const columns = Math.ceil(width / 160) + 1;
+      const rows = Math.ceil(height / 150) + 1;
+      nodes = Array.from({ length: columns * rows }, (_, i) => ({
+        x: (i % columns) * 160 + Math.sin(i * 17.3) * 55,
+        y: Math.floor(i / columns) * 150 + Math.cos(i * 9.7) * 45,
+      }));
+      edges = [];
+      for (let a = 0; a < nodes.length; a++) {
+        for (let b = a + 1; b < nodes.length; b++) {
+          const distance = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y);
+          if (distance < 260) edges.push({ a, b, distance });
+        }
+      }
+      schedule();
+    }
+
+    window.addEventListener('pointermove', (event) => {
+      if (motion.matches || !mouse.matches || event.pointerType === 'touch') return;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.target = 1;
+      schedule();
+    }, { passive: true });
+    function reset() {
+      pointer.target = 0;
+      if (motion.matches || !mouse.matches) pointer.strength = 0;
+      schedule();
+    }
+    document.documentElement.addEventListener('pointerleave', reset);
+    window.addEventListener('blur', reset);
+    motion.addEventListener('change', reset);
+    mouse.addEventListener('change', reset);
+    window.addEventListener('resize', resize, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else reset();
+    });
+    resize();
+  }
+</script>

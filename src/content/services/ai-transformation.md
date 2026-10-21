@@ -9,6 +9,7 @@ bullets:
   - Where AI actually moves revenue, not where it demos well
   - New operating model — tooling, structure, governance, hiring
   - Change management — the training, incentives, and habits that make it stick
+  - AI assurance — model auditability, agent security reviews, and controls for high-scrutiny decisions
   - Hands-on builds of the two or three highest-leverage bets
 audience: CEOs, COOs, and function leaders at organizations with real revenue and complexity. Not startups chasing a first prototype.
 ---
